@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Category</title>
+</head>
+<body>
+
+<h1>Show me the category</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Category ID</th>
+        <th>Name</th>
+        <th>Parent ID</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="category : ${category}">
+        <td th:text="${category.categoryId}">1</td>
+        <td th:text="${category.name}">Electri</td>
+        <td th:text="${category.parentId}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
