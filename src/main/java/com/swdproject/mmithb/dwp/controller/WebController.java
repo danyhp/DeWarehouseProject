@@ -45,7 +45,7 @@ public class WebController {
 
         List<NestedCategory> nestedCategory = new ArrayList<>();
         model.addAttribute("category", nestedCategory);
-        List<NestedCategory> nestedCategories = nestedCategoryRepository.findAll();
+        List<NestedCategory> nestedCategories = nestedCategoryRepository.getIndentedCategories();
         model.addAttribute("categories", nestedCategories);
         return "categoryPage";
     }

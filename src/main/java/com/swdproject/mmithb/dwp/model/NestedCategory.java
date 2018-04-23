@@ -7,6 +7,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "nested_category")
 //@EntityListeners(AuditingEntityListener.class)
+@NamedStoredProcedureQuery(name = "getIndentedCategories", procedureName = "show_indent", resultClasses = NestedCategory.class)
 public class NestedCategory implements Serializable {
 
     @Id

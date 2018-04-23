@@ -18,7 +18,7 @@
         <tbody>
         <tr th:each="category : ${categories}">
             <td th:text="${category.categoryId}">1</td>
-            <td th:text="${category.name}">Electri</td>
+            <td th:utext="${category.name}">Electri</td>
             <td th:text="${category.lft}">2</td>
             <td th:text="${category.rgt}">2</td>
         </tr>
@@ -29,12 +29,12 @@
 
 
 <div class="col-lg-3" th:object="${category}">
-    <form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
+    <form action="#" th:action="@{/greeting}" th:object="${category}" method="post">
         <select class="form-control" id="testOrder" name="testOrder">
             <option value="">Select Test Order</option>
             <option th:each="category : ${categories}"
                     th:value="${category.name}"
-                    th:text="${category.name}"></option>
+                    th:utext="${category.name}"></option>
         </select>
 
         <input type="submit" value="Submit" /> <input type="reset" value="Delete" />
