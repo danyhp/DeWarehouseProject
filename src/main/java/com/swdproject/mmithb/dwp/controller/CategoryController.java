@@ -3,12 +3,14 @@ package com.swdproject.mmithb.dwp.controller;
 
 import com.swdproject.mmithb.dwp.exception.ResourceNotFoundException;
 import com.swdproject.mmithb.dwp.model.Category;
-import com.swdproject.mmithb.dwp.model.NestedCategory;
 import com.swdproject.mmithb.dwp.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -17,24 +19,6 @@ public class CategoryController {
 
     @Autowired
     CategoryRepository categoryRepository;
-
-//    // Show Indented Category
-//    @GetMapping("/showcat")
-//    public List<NestedCategory> showCategory() {
-//        return categoryRepository.showIndent();
-//    }
-
-    // Show Indented Category
-    @GetMapping("/category")
-    public List<Category> showCategory() {
-        return categoryRepository.findAll();
-    }
-
-    // Get All Category
-//    @GetMapping("/categories")
-//    public List<Category> getAllCategory() {
-//        return categoryRepository.findAll();
-//    }
 
     // Get contains
     @GetMapping("/categories/{name}")
@@ -47,12 +31,6 @@ public class CategoryController {
     public Category createCategory(@Valid @RequestBody Category category) {
         return categoryRepository.save(category);
     }
-
-//    // Add a new SubCategory
-//    @PostMapping("/categories/addsub")
-//    public Category addSubCategory(@Valid @RequestBody Category category) {
-//        return categoryRepository.addSub(category);
-//    }
 
     // Get a Single Category
     @GetMapping("/categories/{id}")
@@ -86,5 +64,6 @@ public class CategoryController {
 //
 //        return ResponseEntity.ok().build();
 //    }
+
 
 }

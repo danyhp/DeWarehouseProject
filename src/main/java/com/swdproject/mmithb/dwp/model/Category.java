@@ -2,21 +2,23 @@ package com.swdproject.mmithb.dwp.model;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "category")
-public class Category {
+public class Category implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long categoryId;
 
+    @NotBlank
     private String name;
 
     private Long parentId;
 
     // Getter and Setter
-
 
     public Long getCategoryId() {
         return categoryId;

@@ -1,14 +1,12 @@
 package com.swdproject.mmithb.dwp.model;
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "category")
-@EntityListeners(AuditingEntityListener.class)
+@Table(name = "nested_category")
+//@EntityListeners(AuditingEntityListener.class)
 public class NestedCategory implements Serializable {
 
     @Id

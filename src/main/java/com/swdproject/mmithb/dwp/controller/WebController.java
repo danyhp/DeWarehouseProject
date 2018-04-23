@@ -1,38 +1,24 @@
 package com.swdproject.mmithb.dwp.controller;
 
-import com.swdproject.mmithb.dwp.model.Greeting;
 import com.swdproject.mmithb.dwp.model.NestedCategory;
+import com.swdproject.mmithb.dwp.repository.CategoryRepository;
+import com.swdproject.mmithb.dwp.repository.NestedCategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class WebController {
 
-    @GetMapping("/greeting")
-    public String greetingForm(Model model) {
-        model.addAttribute("greeting", new Greeting());
-        return "showCategory";
-    }
+    @Autowired
+    CategoryRepository categoryRepository;
 
-    @GetMapping("/category")
-    public String categoryPage(Model model){
-        return "categoryPage";
-    }
-
-    @GetMapping("/addcate")
-    public String addCategoryForm(Model model) {
-        model.addAttribute("category", new NestedCategory());
-        return "categoryPage";
-    }
-
-    @PostMapping("/addcate")
-    public String addCategorySubmit(@ModelAttribute NestedCategory category) {
-        return "resultcate";
-    }
-
+    @Autowired
+    NestedCategoryRepository nestedCategoryRepository;
 
     // Return JSON of all category
     @GetMapping("/categories")
@@ -40,9 +26,29 @@ public class WebController {
         return "showCategory";
     }
 
-    @PostMapping("/greeting")
-    public String greetingSubmit(@ModelAttribute Greeting greeting) {
-        return "result";
+
+    @GetMapping("/inventory")
+    public String inventoryPage() {
+        return "inventory";
     }
+
+//    // Show Indented Category
+//    @GetMapping("/category")
+//    public String listCategory(Model model) {
+//        List<Category> categories = categoryRepository.findAll();
+//        model.addAttribute("categories", categories);
+//        return "categoryPage";
+//    }
+
+    @GetMapping("/test")
+    public String getTest(Model model) {
+
+        List<NestedCategory> nestedCategory = new ArrayList<>();
+        model.addAttribute("category", nestedCategory);
+        List<NestedCategory> nestedCategories = nestedCategoryRepository.findAll();
+        model.addAttribute("categories", nestedCategories);
+        return "categoryPage";
+    }
+
 
 }

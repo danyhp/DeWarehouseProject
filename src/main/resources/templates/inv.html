@@ -1,0 +1,203 @@
+<html lang="en" class="no-js">
+<title>DWP Inventory</title>
+
+<head>
+	<link href="css/layout-inv.css" rel="stylesheet" type="text/css"/>
+	<!link href="css/drop-down.css" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+   <h1>City Gallery</h1>
+</header>
+  
+<div data-role="page">
+  <div data-role="main" class="ui-content">
+	<div class="custom-select" style="width:500px;">
+	  <select>
+		<option value="0">Select car:</option>
+		<option value="1">Audi</option>
+		<option value="2">BMW</option>
+		<option value="3">Citroen</option>
+		<option value="4">Ford</option>
+		<option value="5">Honda</option>
+		<option value="6">Jaguar</option>
+		<option value="7">Land Rover</option>
+		<option value="8">Mercedes</option>
+		<option value="9">Mini</option>
+		<option value="10">Nissan</option>
+		<option value="11">Toyota</option>
+		<option value="12">Volvo</option>
+	  </select>
+	</div>
+	
+	<a href="#myPopup" data-rel="popup" class="create-icon">
+		<img src="img/New-Folder-icon.png">
+	</a>
+
+    <div data-role="popup" id="myPopup" class="ui-content" style="min-width:500px;">
+      <form method="post" action="/action_page_post.php">
+        <div class="row">
+			<div class="col-25">
+				<label for="fname">Category: </label>
+			</div>
+			<div class="col-75">
+				<select id="country" name="country">
+					<option value="australia">Food</option>
+					<option value="canada">Beverages</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-25">
+				<label for="lname">New sub-category:</label>
+			</div>
+			<div class="col-75">
+				<input type="text" id="scategory" name="subcategory" placeholder="Enter new category">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-25">
+				<label for="country">Country</label>
+			</div>
+			<div class="col-75">
+				<input type="text" id="fname" name="firstname" placeholder="Your name..">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-25">
+				<label for="subject">Subject</label>
+			</div>
+			<div class="col-75">
+				<textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<input type="submit" value="Submit">
+			<input type="button" value="Cancel">
+		</div>
+      </form>
+    </div>
+	
+	<a href="#myPopup" data-rel="popup" class="create-icon">
+		<img src="img/edit-icon.png">
+	</a>
+
+    <div data-role="popup" id="myPopup" class="ui-content" style="min-width:500px;">
+      <form method="post" action="/action_page_post.php">
+        <div class="row">
+			<div class="col-25">
+				<label for="fname">Category: </label>
+			</div>
+			<div class="col-75">
+				<select id="country" name="country">
+					<option value="australia">Food</option>
+					<option value="canada">Beverages</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-25">
+				<label for="lname">New sub-category:</label>
+			</div>
+			<div class="col-75">
+				<input type="text" id="scategory" name="subcategory" placeholder="Enter new category">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-25">
+				<label for="country">Country</label>
+			</div>
+			<div class="col-75">
+				<input type="text" id="fname" name="firstname" placeholder="Your name..">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-25">
+				<label for="subject">Subject</label>
+			</div>
+			<div class="col-75">
+				<textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<input type="submit" value="Submit">
+			<input type="button" value="Cancel">
+		</div>
+      </form>
+    </div>
+	
+	<a href="#myPopup" data-rel="popup" class="delete-icon">
+		<img src="img/Delete-2-icon.png">
+	</a>
+
+    <div data-role="popup" id="myPopup" class="ui-content" style="min-width:500px;">
+      <form method="post" action="/action_page_post.php">
+        <div class="row">
+			<div class="col-25">
+				<label for="fname">Category: </label>
+			</div>
+			<div class="col-75">
+				<select id="country" name="country">
+					<option value="australia">Food</option>
+					<option value="canada">Beverages</option>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-25">
+				<label for="lname">New sub-category:</label>
+			</div>
+			<div class="col-75">
+				<input type="text" id="scategory" name="subcategory" placeholder="Enter new category">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-25">
+				<label for="country">Country</label>
+			</div>
+			<div class="col-75">
+				<input type="text" id="fname" name="firstname" placeholder="Your name..">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-25">
+				<label for="subject">Subject</label>
+			</div>
+			<div class="col-75">
+				<textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<input type="submit" value="Submit">
+			<input type="button" value="Cancel">
+		</div>
+      </form>
+    </div>
+  </div>
+</div>
+  
+<nav>
+  <ul>
+    <li><a href="#">London</a></li>
+    <li><a href="#">Paris</a></li>
+    <li><a href="#">Tokyo</a></li>
+  </ul>
+</nav>
+
+<article>
+  <h1>London</h1>
+  <p>London is the capital city of England. It is the most populous city in the  United Kingdom, with a metropolitan area of over 13 million inhabitants.</p>
+  <p>Standing on the River Thames, London has been a major settlement for two millennia, its history going back to its founding by the Romans, who named it Londinium.</p>
+</article>
+
+<footer>Copyright &copy; W3Schools.com</footer>
+
+</div>
+
+</body>
+
+
+</html>
