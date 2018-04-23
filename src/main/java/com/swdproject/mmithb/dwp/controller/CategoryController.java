@@ -20,12 +20,6 @@ public class CategoryController {
     @Autowired
     CategoryRepository categoryRepository;
 
-    // Get contains
-    @GetMapping("/categories/{name}")
-    public List<Category> getContains(@PathVariable(value = "name") String name) {
-        return categoryRepository.findAllByNameContains(name);
-    }
-
     // Create a new Category
     @PostMapping("/categories/create")
     public Category createCategory(@Valid @RequestBody Category category) {

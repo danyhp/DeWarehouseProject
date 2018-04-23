@@ -20,27 +20,14 @@ public class WebController {
     @Autowired
     NestedCategoryRepository nestedCategoryRepository;
 
-    // Return JSON of all category
-    @GetMapping("/categories")
-    public String getAllCategoryData() {
-        return "showCategory";
-    }
-
 
     @GetMapping("/inventory")
     public String inventoryPage() {
         return "inventory";
     }
 
-//    // Show Indented Category
-//    @GetMapping("/category")
-//    public String listCategory(Model model) {
-//        List<Category> categories = categoryRepository.findAll();
-//        model.addAttribute("categories", categories);
-//        return "categoryPage";
-//    }
 
-    @GetMapping("/test")
+    @GetMapping("/categories")
     public String getTest(Model model) {
 
         List<NestedCategory> nestedCategory = new ArrayList<>();
