@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Category Form</title>
+</head>
+<body>
+
+<form action="#" th:action="@{/addnewcat}" th:object="${newCategory}" method="post">
+
+    <select class="form-control" id="parent" name="parent" disabled>
+        <option th:value="${parentCategory.name}"
+                th:utext="${parentCategory.name}"></option>
+    </select>
+
+    <p><input type="text" text="New Category Name" id="newCategory" name="newCategory" /></p>
+
+</form>
+
+</body>
+</html>

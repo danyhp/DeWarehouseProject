@@ -1,6 +1,5 @@
 package com.swdproject.mmithb.dwp.repository;
 
-import com.swdproject.mmithb.dwp.model.Category;
 import com.swdproject.mmithb.dwp.model.NestedCategory;
 
 import javax.persistence.EntityManager;
@@ -19,4 +18,5 @@ public class NestedCategoryRepositoryImpl implements NestedCategoryRepositoryCus
                 entityManager.createNamedStoredProcedureQuery("getIndentedCategories");
         return showIndented.getResultList();
     }
+
 }

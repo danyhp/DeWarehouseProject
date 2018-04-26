@@ -1,36 +1,36 @@
 package com.swdproject.mmithb.dwp.model;
 
 
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "product")
-@EntityListeners(AuditingEntityListener.class)
+//@EntityListeners(AuditingEntityListener.class)
 public class Item implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
+    private Long id;
 
+    @Column
     @NotBlank
     private String name;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private NestedCategory categoryId;
+
+    @Column
     @NotBlank
-    private Long categoryId;
+    private Integer qty;
+
 
     // Getter and Setter
 
-
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
@@ -41,11 +41,23 @@ public class Item implements Serializable {
         this.name = name;
     }
 
-    public Long getCategoryId() {
+    public NestedCategory getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(NestedCategory categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Integer getQty() {
+        return qty;
+    }
+
+    public void setQty(Integer qty) {
+        this.qty = qty;
     }
 }

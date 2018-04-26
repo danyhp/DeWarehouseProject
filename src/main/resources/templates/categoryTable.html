@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Category Table</title>
+</head>
+<body>
+
+<h1>Show me the category</h1>
+<div>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Category ID</th>
+            <th>Name</th>
+            <th>Left</th>
+            <th>Right</th>
+            <th>Parent Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="category : ${categories}">
+            <td th:text="${category.id}">1</td>
+            <td th:utext="${category.name}">x</td>
+            <td th:text="${category.lft}">2</td>
+            <td th:text="${category.rgt}">2</td>
+            <td th:if="${category.parent != null}" th:text="${category.parent.name}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<br>
+
+</body>
+</html>
