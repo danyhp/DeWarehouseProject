@@ -60,7 +60,7 @@ public class WebController {
         model.addAttribute("category", nestedCategory);
         List nestedCategories = nestedCategoryRepository.getIndentedCategories();
         model.addAttribute("categories", nestedCategories);
-        return "inventory";
+        return "inventoryReady2";
     }
 
     @GetMapping("/categoryTable")
@@ -72,33 +72,19 @@ public class WebController {
         return "categoryTable";
     }
 
-//    @PostMapping("/addcat")
-//    public String addCategory(@RequestParam("category") String oldcategory, Model model) {
-//        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(oldcategory));
-//        model.addAttribute("parentCategory", parentCategory);
-//        return "newCategoryForm";
-//    }
-
     @PostMapping("/addnewcat")
     public String saveCategory(@RequestParam("parent") String parent, @RequestParam("newCategory") String newcategory, Model model) {
         nestedCategoryRepository.addNewSubcategory(newcategory, parent);
         return "redirect:/categories";
     }
 
-//    @PostMapping("updatecat")
-//    public String updateCategory(@RequestParam("category") String oldcategory, Model model) {
-//        NestedCategory existingCategory = nestedCategoryRepository.findOneById(Long.parseLong(oldcategory));
-//        model.addAttribute("parentCategory", existingCategory);
-//        return "updateCategoryForm";
-//    }
-
-    @PostMapping("savecat")
+    @PostMapping("/savecat")
     public String updateSaveCategory(@RequestParam("newcategory") String newcategory, @RequestParam("oldcategory") String oldcategory, Model model) {
         nestedCategoryRepository.updateCategory(newcategory, oldcategory);
         return "redirect:/categories";
     }
 
-    @PostMapping("edit")
+    @PostMapping("/edit")
     public String editCategory(@RequestParam("category") String oldcategory, @RequestParam(value = "action") String action,
                                Model model) {
         NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(oldcategory));
