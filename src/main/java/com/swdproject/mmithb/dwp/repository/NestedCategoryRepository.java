@@ -12,8 +12,7 @@ import javax.transaction.Transactional;
 @Transactional
 public interface NestedCategoryRepository extends JpaRepository<NestedCategory, Long>, NestedCategoryRepositoryCustom {
 
-    @Procedure(name = "add_new_subcategory")
-    void addNewSubcategory(@Param("category_name") String category_name, @Param("parent_name") String parent_name);
+    NestedCategory findOneById(Long id);
 
 
 }

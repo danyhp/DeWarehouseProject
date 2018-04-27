@@ -8,16 +8,18 @@
 
 
 <div class="col-lg-3">
-    <form action="#" th:action="@{/addcat}" method="post">
+    <form action="#" method="post">
+        <p>
+            <select class="form-control" id="category" name="category">
+                <option value="0">Select Category</option>
+                <option th:each="category : ${categories}"
+                        th:value="${category.id}"
+                        th:utext="${category.name}"></option>
+            </select>
 
-        <select class="form-control" id="category" name="category">
-            <option value="0">Select Test Order</option>
-            <option th:each="category : ${categories}"
-                    th:value="${category.id}"
-                    th:utext="${category.name}"></option>
-        </select>
-
-        <input type="submit" value="Submit"/> <input type="reset" value="Delete"/>
+            <button type="submit" th:action="@{/addcat}" >New</button>
+            <button type="submit" th:action="@{/updatecat}">Update</button>
+            <button type="submit" th:action="@{/delcat}">Delete</button></p>
     </form>
 </div>
 

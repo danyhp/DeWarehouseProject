@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class WebController {
@@ -30,6 +29,11 @@ public class WebController {
     @RequestMapping("/home")
     public String welcome() {
         return "DeWarehouse";
+    }
+
+    @GetMapping("/inven")
+    public String inven() {
+        return "inven";
     }
 
     @GetMapping("/inventory")
@@ -56,8 +60,7 @@ public class WebController {
         model.addAttribute("category", nestedCategory);
         List nestedCategories = nestedCategoryRepository.getIndentedCategories();
         model.addAttribute("categories", nestedCategories);
-        model.addAttribute("new_category", "");
-        return "categoryPage";
+        return "inventory";
     }
 
     @GetMapping("/categoryTable")
@@ -69,11 +72,47 @@ public class WebController {
         return "categoryTable";
     }
 
-    @PostMapping("/addcat")
-    public String addCategory(@RequestParam("category") String oldcategory, Model model){
-        Optional<NestedCategory> parentCategory = nestedCategoryRepository.findById(Long.parseLong(oldcategory));
-        model.addAttribute("parentCategory", parentCategory);
-        return "newCategoryForm";
+//    @PostMapping("/addcat")
+//    public String addCategory(@RequestParam("category") String oldcategory, Model model) {
+//        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(oldcategory));
+//        model.addAttribute("parentCategory", parentCategory);
+//        return "newCategoryForm";
+//    }
+
+    @PostMapping("/addnewcat")
+    public String saveCategory(@RequestParam("parent") String parent, @RequestParam("newCategory") String newcategory, Model model) {
+        nestedCategoryRepository.addNewSubcategory(newcategory, parent);
+        return "redirect:/categories";
+    }
+
+//    @PostMapping("updatecat")
+//    public String updateCategory(@RequestParam("category") String oldcategory, Model model) {
+//        NestedCategory existingCategory = nestedCategoryRepository.findOneById(Long.parseLong(oldcategory));
+//        model.addAttribute("parentCategory", existingCategory);
+//        return "updateCategoryForm";
+//    }
+
+    @PostMapping("savecat")
+    public String updateSaveCategory(@RequestParam("newcategory") String newcategory, @RequestParam("oldcategory") String oldcategory, Model model) {
+        nestedCategoryRepository.updateCategory(newcategory, oldcategory);
+        return "redirect:/categories";
+    }
+
+    @PostMapping("edit")
+    public String editCategory(@RequestParam("category") String oldcategory, @RequestParam(value = "action") String action,
+                               Model model) {
+        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(oldcategory));
+
+        if (action.equals("new")) {
+            model.addAttribute("parentCategory", parentCategory);
+            return "newCategoryForm";
+        } else if (action.equals("update")) {
+            model.addAttribute("oldCategory", parentCategory);
+            return "updateCategoryForm";
+        } else if (action.equals("delete")) {
+            return "categories";
+        }
+        return "categories";
     }
 
 //    @RequestMapping(value = "/addcat", method = RequestMethod.POST)
@@ -88,20 +127,5 @@ public class WebController {
 //        return "newCategoryForm";
 //    }
 
-//    @GetMapping("/addcat")
-//    public String addCategory(Model model, ) {
-//        model.addAttribute()
-//
-//        return "newCategoryForm";
-//    }
-
-//    @RequestMapping(value="/addcat", method = RequestMethod.POST)
-//    public String addNewCategory (@RequestParam NestedCategory parent, Model model) {
-//        model.addAttribute("parent", parent.getName());
-//        NestedCategory newCategory = new NestedCategory();
-//        newCategory.setParent(parent);
-//        model.addAttribute("newcategory", newCategory);
-//        return "newCategoryForm";
-//    }
 
 }

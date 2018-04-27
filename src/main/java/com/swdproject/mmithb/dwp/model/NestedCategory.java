@@ -21,9 +21,16 @@ import java.util.Collection;
                         @StoredProcedureParameter(mode = ParameterMode.IN, name = "parent_name", type = String.class)
                 }),
         @NamedStoredProcedureQuery(name = "updateCategory",
-                procedureName = "update_category"),
+                procedureName = "update_category",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "category_name", type = String.class),
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "category_old_name", type = String.class)
+                }),
         @NamedStoredProcedureQuery(name = "deleteCategory",
-                procedureName = "delete_category")
+                procedureName = "delete_category",
+                parameters = {
+                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "category_name", type = String.class)
+                })
 })
 public class NestedCategory implements Serializable {
 

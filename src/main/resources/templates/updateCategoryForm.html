@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Category Form</title>
+</head>
+<body>
+<h1>Update Existing Category</h1>
+
+<form action="#" th:action="@{/savecat}" th:object="${newCategory}" method="post">
+    <p>Old Category Name : <select class="form-control" id="oldcategory" name="oldcategory">
+        <option th:value="${oldCategory.name}"
+                th:utext="${oldCategory.name}"></option>
+    </select>
+    </p>
+
+    <p>New Category Name : <input type="text" text="New Category Name" id="newcategory" name="newcategory"/></p>
+
+    <p><button type="submit">Update</button> <button type="submit" th:action="@{/categories}">Cancel</button></p>
+</form>
+
+</body>
+</html>
