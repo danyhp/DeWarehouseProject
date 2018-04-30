@@ -21,9 +21,13 @@
     <link th:href="@{/vendor/swiper/css/swiper.min.css}" href="vendor/swiper/css/swiper.min.css" rel="stylesheet"
           type="text/css"/>
 
+    <script th:src="@{https://code.jquery.com/jquery-1.11.3.min.js}" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script th:src="@{https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js}" src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <!--link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
     <!-- THEME STYLES -->
     <!--<link th:href="@{/css/layout.min.css}" href="css/layout.min.css" rel="stylesheet" type="text/css"/>-->
-
 
     <!--<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>-->
     <!--<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>-->
@@ -66,12 +70,17 @@
                             </select>
 
                             <div class="input-group-btn">
-                                <button type="submit" class=" btn btn-default" name="action" value="new">New</button>
-                                <button type="submit" class="btn btn-default" name="action" value="update">Update
-                                </button>
-                                <button type="submit" class="btn btn-default" name="action" value="delete">Delete
-                                </button>
+                                <a href="#new" data-rel="popup" class="create-icon">
+                                    <img src="/templates/img/New-Folder-icon.png" src="/DeWarehouseProject/static/img/New-Folder-icon.png">
+                                </a>
+                                <a href="#update" data-rel="popup" class="create-icon">
+                                    <img src="/templates/img/edit-icon.png" src="/DeWarehouseProject/static/img/edit-icon.png">
+                                </a>
+                                <a href="#delete" data-rel="popup" class="delete-icon">
+                                    <img src="/templates/img/Delete-2-icon.png" src="/DeWarehouseProject/static/img/Delete-2-icon.png">
+                                </a>
                             </div>
+
                             <div data-role="popup" id="new" class="ui-content" style="min-width:500px;">
                                 <form method="post" action="/action_page_post.php">
                                     <div class="row">
@@ -90,11 +99,65 @@
                                             <label for="lname">New sub-category:</label>
                                         </div>
                                         <div class="col-75">
-                                            <input type="text" id="scategory" name="subcategory" placeholder="Enter new category">
+                                            <input type="text" id="subcategory" name="subcategory" placeholder="Enter new category">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <input type="submit" value="Submit">
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div data-role="popup" id="update" class="ui-content" style="min-width:500px;">
+                                <form method="post" action="/action_page_post.php">
+                                    <div class="row">
+                                        <div class="col-25">
+                                            <label for="fname">Category: </label>
+                                        </div>
+                                        <div class="col-75">
+                                            <select id="country" name="country">
+                                                <option value="food">Food</option>
+                                                <option value="drinks">Beverages</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-25">
+                                            <label for="lname">New sub-category:</label>
+                                        </div>
+                                        <div class="col-75">
+                                            <input type="text" id="subcategory" name="subcategory" placeholder="Enter new category">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <input type="submit" value="Update">
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div data-role="popup" id="delete" class="ui-content" style="min-width:500px;">
+                                <form method="post" action="/action_page_post.php">
+                                    <div class="row">
+                                        <div class="col-25">
+                                            <label for="fname">Category: </label>
+                                        </div>
+                                        <div class="col-75">
+                                            <select id="country" name="country">
+                                                <option value="food">Food</option>
+                                                <option value="drinks">Beverages</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-25">
+                                            <label for="lname">New sub-category:</label>
+                                        </div>
+                                        <div class="col-75">
+                                            <input type="text" id="subcategory" name="subcategory" placeholder="Enter new category">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <input type="submit" value="Delete">
                                     </div>
                                 </form>
                             </div>
