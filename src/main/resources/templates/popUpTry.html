@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>A Simple Popup</title>
+    <style>
+        #overlayUpdate {
+            display: none;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            background: #999;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+            z-index: 100;
+        }
+
+        #popupUpdate {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            background: #fff;
+            width: 500px;
+            height: 500px;
+            margin-left: -250px; /*Half the value of width to center div*/
+            margin-top: -250px; /*Half the value of height to center div*/
+            z-index: 200;
+        }
+
+        #popupUpdateClose {
+            float: right;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .popupcontent {
+            padding: 10px;
+        }
+
+        #button {
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+<body>
+<div id="maincontent">
+    <h1>Page Content</h1>
+    <button id="button">Show Popup</button>
+</div>
+<div id="overlay"></div>
+<div id="popup">
+    <div class="popupcontrols">
+        <span id="popupclose">X</span>
+    </div>
+    <div class="popupcontent">
+        <h1>Update Existing Category</h1>
+
+        <form action="#" th:action="@{/savecat}" th:object="${newCategory}" method="post">
+            <p>Old Category Name : <select class="form-control" id="oldcategory" name="oldcategory">
+                <option th:value="${oldCategory.name}"
+                        th:utext="${oldCategory.name}"></option>
+            </select>
+            </p>
+
+            <p>New Category Name : <input type="text" text="New Category Name" id="newcategory" name="newcategory"/></p>
+
+            <p>
+                <button type="submit">Update</button>
+                <button type="submit" th:action="@{/categories}">Cancel</button>
+            </p>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    // Initialize Variables
+    var closePopup = document.getElementById("popupUpdateClose");
+    var overlay = document.getElementById("overlayUpdate");
+    var popup = document.getElementById("popupUpdate");
+    var button = document.getElementById("button");
+    // Close Popup Event
+    closePopup.onclick = function () {
+        overlay.style.display = 'none';
+        popup.style.display = 'none';
+    };
+    // Show Overlay and Popup
+    button.onclick = function () {
+        overlay.style.display = 'block';
+        popup.style.display = 'block';
+    }
+</script>
+</body>
+</html>

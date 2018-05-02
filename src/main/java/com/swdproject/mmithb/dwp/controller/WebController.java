@@ -61,7 +61,9 @@ public class WebController {
         List nestedCategories = nestedCategoryRepository.getIndentedCategories();
         model.addAttribute("categories", nestedCategories);
         return "inventoryReady2";
+//        return "inventory222ByEka";
     }
+
 
     @GetMapping("/categoryTable")
     public String getCategoryTable(Model model) {
