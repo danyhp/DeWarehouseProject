@@ -205,7 +205,7 @@
                         <p>Old Category Name :
                             <select class="form-control" id="oldcategory" name="oldcategory">
                                 <!--<option id="oldies" th:value="${oldCategory.name}"-->
-                                        <!--th:utext="${oldCategory.name}"></option>-->
+                                <!--th:utext="${oldCategory.name}"></option>-->
                             </select>
                         </p>
 
@@ -241,7 +241,7 @@
                     <div class="input-group">
                         <p>Parent Category : <select class="form-control" id="parent" name="parent">
                             <!--<option th:value="${parentCategory.name}"-->
-                                    <!--th:utext="${parentCategory.name}"></option>-->
+                            <!--th:utext="${parentCategory.name}"></option>-->
                         </select>
                         </p>
 
@@ -307,10 +307,18 @@
     var overlayUpdate = document.getElementById("overlayUpdate");
     var popupUpdate = document.getElementById("popupUpdate");
     var buttonUpdate = document.getElementById("update");
+    var parentCategory = document.getElementById("category");
+    var formParent = document.getElementById("oldcategory")
+
+    formParent.set("value", parentCategory.getAttribute("value"));
+
+
+    // formParent.set(parentCategory);
     // Close Popup Event
     closePopupUpdate.onclick = function () {
         overlayUpdate.style.display = 'none';
         popupUpdate.style.display = 'none';
+
     };
     // Show Overlay and Popup
     buttonUpdate.onclick = function () {
