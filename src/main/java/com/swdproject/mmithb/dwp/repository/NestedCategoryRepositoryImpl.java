@@ -44,4 +44,14 @@ public class NestedCategoryRepositoryImpl implements NestedCategoryRepositoryCus
 
         updateCategory.execute();
     }
+
+    @Override
+    public void deleteCategory(String categoryname) {
+        StoredProcedureQuery deleteCategory =
+                entityManager.createNamedStoredProcedureQuery("deleteCategory");
+
+        deleteCategory.setParameter("category_name", categoryname);
+
+        deleteCategory.execute();
+    }
 }

@@ -60,8 +60,9 @@ public class WebController {
         model.addAttribute("category", nestedCategory);
         List nestedCategories = nestedCategoryRepository.getIndentedCategories();
         model.addAttribute("categories", nestedCategories);
-        return "inventoryReady2";
+//        return "inventoryReady2";
 //        return "inventory222ByEka";
+        return "inventIndex";
     }
 
 
@@ -75,14 +76,23 @@ public class WebController {
     }
 
     @PostMapping("/addnewcat")
-    public String saveCategory(@RequestParam("parent") String parent, @RequestParam("newCategory") String newcategory, Model model) {
-        nestedCategoryRepository.addNewSubcategory(newcategory, parent);
+    public String saveCategory(@RequestParam("parent") String parent, @RequestParam("addcategory") String newcategory, Model model) {
+        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(parent));
+        nestedCategoryRepository.addNewSubcategory(newcategory, parentCategory.getName());
         return "redirect:/categories";
     }
 
     @PostMapping("/savecat")
     public String updateSaveCategory(@RequestParam("newcategory") String newcategory, @RequestParam("oldcategory") String oldcategory, Model model) {
-        nestedCategoryRepository.updateCategory(newcategory, oldcategory);
+        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(oldcategory));
+        nestedCategoryRepository.updateCategory(newcategory, parentCategory.getName());
+        return "redirect:/categories";
+    }
+
+    @PostMapping("/deletecat")
+    public String deleteCategory(@RequestParam("categorydel") String categoryname, Model model) {
+        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(categoryname));
+        nestedCategoryRepository.deleteCategory(parentCategory.getName());
         return "redirect:/categories";
     }
 
