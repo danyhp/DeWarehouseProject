@@ -84,7 +84,7 @@
     </div>
 
     <div>
-        <table id="example" class="display"  >
+        <table id="example" class="display">
             <thead>
             <tr>
                 <th>ID</th>
@@ -292,22 +292,62 @@
         </div>
     </div>
 
+    <!-- Modal UPDATE ITEM -->
+    <div class="modal fade" id="updateItem" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <form action="#" th:action="@{/updateitem}" method="post">
+                    <div class="modal-header">
+
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Add Item</h3>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="updateParentItem">Category :</label>
+                            <select class="form-control" id="updateParentItemCategory" name="updateParentItemCategory">
+                                <option id="updateParentItem" name="updateParentItem"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateItemName">New Item Name :</label>
+                            <input class="form-control" type="text" text="New Item Name"
+                                   id="updateItemName" name="updateItemName" required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateItemManufacturer">Manufacturer :</label>
+                            <input class="form-control" type="text" text="Manufacturer"
+                                   id="updateItemManufacturer" name="updateItemManufacturer" required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateItemQty">Qty :</label>
+                            <input type="number" class="form-control" id="updateItemQty" name="updateItemQty" required/>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary" type="submit">Add</button>
+                            <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
 </div>
 
 
-<!--<script type="text/javascript">-->
-<!--$(document).ready(function () {-->
-<!--$('#example').DataTable({-->
-<!--"paging": true,-->
-<!--"pageLength": 10,-->
-<!--"ordering": true-->
-<!--});-->
-
-<!--});-->
-
-<!--</script>-->
-
 <script>
+    var editor;
+
     $(document).ready(function () {
         var table = $('#example').DataTable({
             dom: 'lrtip',
@@ -321,6 +361,7 @@
                     "aTargets": [5],
                     data: null,
                     className: "center",
+                    // defaultContent: '<button><span class="glyphicon glyphicon-pencil"></span></button> <span class="glyphicon glyphicon-option-vertical"></span> <a href="" class="editor_remove"><span class="glyphicon glyphicon-trash"></span></a>'
                     defaultContent: '<a href="" class="editor_edit"><span class="glyphicon glyphicon-pencil"></span></a> <span class="glyphicon glyphicon-option-vertical"></span> <a href="" class="editor_remove"><span class="glyphicon glyphicon-trash"></span></a>'
                 }
             ]
@@ -336,23 +377,39 @@
 
         });
 
-        $('#searchBox').keyup(function(){
-            table.search($(this).val()).draw() ;
+        $('#searchBox').keyup(function () {
+            table.search($(this).val()).draw();
         });
 
-        // $('#category').change(function () {
-        //     var parentCategory = document.getElementById("category");
-        //     var value = parentCategory.value;
-        //     formParent.value = parentCategory.value;
-        //     if (parseInt(value) > 1) {
-        //         var filter = '';
-        //         $('#category option:selected').each(function () {
-        //             filter += $(this).text() + "+";
-        //         });
-        //         filter = filter.substring(0, filter.length - 1);
-        //         table.column(1).search(filter).draw();
-        //     }
+        $('#example tbody').on( 'click', 'a.editor_edit', function () {
+            var data = table.row( $(this).parents('tr') ).data();
+            // var modal = $('#updateItem').modal();
+            // var parentCategory = document.getElementById("updateParentItem");
+            // parentCategory.set = data[1];
+
+            alert( data[1] +"'s quantity is: "+ data[ 4] );
+        } );
+
+        // Edit record
+        // table.on('click', 'a.editor_edit', function (e) {
+        //     e.preventDefault();
+        //
+        //     editor.edit($(this).closest('tr'), {
+        //         title: 'Edit record',
+        //         buttons: 'Update'
+        //     });
         // });
+
+        // Delete a record
+        table.on('click', 'a.editor_remove', function (e) {
+            e.preventDefault();
+
+            editor.remove($(this).closest('tr'), {
+                title: 'Delete record',
+                message: 'Are you sure you wish to remove this record?',
+                buttons: 'Delete'
+            });
+        });
 
     });
 
@@ -426,12 +483,6 @@
     });
 
 
-    // $('#updateModal').on('show.bs.modal', function () {
-    //     // var recipient = button.data('whatever') // Extract info from data-* attributes
-    //     // var modal = $(this)
-    //     // modal.find('.modal-title').text('New message to ' + recipient)
-    //     // modal.find('.modal-body input').val(recipient)
-    // })
 </script>
 
 </body>
