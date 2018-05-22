@@ -71,11 +71,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.github.darrachequesne</groupId>
-			<artifactId>spring-data-jpa-datatables</artifactId>
-			<version>5.0.0</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>com.github.darrachequesne</groupId>-->
+			<!--<artifactId>spring-data-jpa-datatables</artifactId>-->
+			<!--<version>5.0.0</version>-->
+		<!--</dependency>-->
 	</dependencies>
 
 	<build>

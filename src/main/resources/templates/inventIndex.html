@@ -13,13 +13,15 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-    <script src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script src="https://editor.datatables.net/extensions/Editor/js/dataTables.editor.min.js"></script>
 
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.16/datatables.min.css"/>
 
     <link th:href="@{/css/drop-down.css}" href="css/drop-down.css" rel="stylesheet" type="text/css"/>
-    <link th:href="@{/css/popup.css}" href="css/popup.css" rel="stylesheet" type="text/css"/>
+    <!--<link th:href="@{/css/popup.css}" href="css/popup.css" rel="stylesheet" type="text/css"/>-->
 
 
 </head>
@@ -82,7 +84,7 @@
     </div>
 
     <div>
-        <table id="example" class="table" cellspacing="0" width="100%" style="overflow-x:auto">
+        <table id="example" class="display"  >
             <thead>
             <tr>
                 <th>ID</th>
@@ -90,6 +92,7 @@
                 <th>Name</th>
                 <th>Manufacturer</th>
                 <th>Qty</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -100,6 +103,7 @@
                 <td th:text="${item.name}">2</td>
                 <td th:text="${item.manufacturer}">2</td>
                 <td th:text="${item.qty}">2</td>
+                <td></td>
 
             </tr>
             </tbody>
@@ -110,6 +114,7 @@
                 <th>Name</th>
                 <th>Manufacturer</th>
                 <th>Qty</th>
+                <th>Actions</th>
             </tr>
             </tfoot>
         </table>
@@ -305,11 +310,19 @@
 <script>
     $(document).ready(function () {
         var table = $('#example').DataTable({
+            dom: 'lrtip',
             "paging": true,
             "pageLength": 10,
             "ordering": true,
             "aoColumnDefs": [
-                {"bSearchable": false, "aTargets": [4]}
+                {"bSearchable": false, "aTargets": [4]},
+                {
+                    "bSearchable": false,
+                    "aTargets": [5],
+                    data: null,
+                    className: "center",
+                    defaultContent: '<a href="" class="editor_edit"><span class="glyphicon glyphicon-pencil"></span></a> <span class="glyphicon glyphicon-option-vertical"></span> <a href="" class="editor_remove"><span class="glyphicon glyphicon-trash"></span></a>'
+                }
             ]
         });
 
