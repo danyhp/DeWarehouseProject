@@ -6,6 +6,8 @@ public interface NestedCategoryRepositoryCustom {
 
     List getIndentedCategories();
 
+    List getPrefixCategory();
+
     void addNewCategory();
 
     void addNewSubcategory(String parent, String newcategory);

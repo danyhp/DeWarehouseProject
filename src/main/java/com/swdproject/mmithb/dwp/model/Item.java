@@ -3,6 +3,7 @@ package com.swdproject.mmithb.dwp.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -24,7 +25,11 @@ public class Item implements Serializable {
 
     @Column
     @NotBlank
-    private Integer qty;
+    private String manufacturer;
+
+    @Column
+    @NotNull
+    private int qty;
 
 
     // Getter and Setter
@@ -59,5 +64,13 @@ public class Item implements Serializable {
 
     public void setQty(Integer qty) {
         this.qty = qty;
+    }
+
+    public String getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(String manufacturer) {
+        this.manufacturer = manufacturer;
     }
 }

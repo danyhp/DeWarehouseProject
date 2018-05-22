@@ -38,8 +38,8 @@ public class NestedCategory implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    @NotBlank
+    @Column(nullable = false, unique = true)
+//    @NotBlank
     private String name;
 
     @Column

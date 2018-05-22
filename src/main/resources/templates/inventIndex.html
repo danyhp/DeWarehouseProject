@@ -13,6 +13,12 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+    <script src="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+
+
+
     <link th:href="@{/css/drop-down.css}" href="css/drop-down.css" rel="stylesheet" type="text/css"/>
     <link th:href="@{/css/popup.css}" href="css/popup.css" rel="stylesheet" type="text/css"/>
 
@@ -26,7 +32,7 @@
 
 <div class="content-lg container">
 
-    <div class="row margin-b-40">
+    <div class="row">
         <div>
             <h2>Inventory</h2>
         </div>
@@ -34,11 +40,10 @@
 
     <div class="col-lg-6">
         <div class="input-group">
-
             <select th:remove="all-but-first" class="form-control" id="category" name="category">
                 <option th:each="category : ${categories}"
                         th:value="${category.id}"
-                        th:utext="${category.name}" value="1">Select Category
+                        th:utext="${category.prefix} + ${category.name}" value="1">Select Category
                 </option>
                 <option value="5">Testing</option>
             </select>
@@ -61,7 +66,7 @@
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-btn">
-                        <button type="submit" class=" btn btn-primary" name="action" value="Add">
+                        <button type="button" class="btn btn-primary" id="addItemBtn">
                             <span class="glyphicon glyphicon-plus-sign"></span> Add Item
                         </button>
                     </div>
@@ -76,6 +81,32 @@
             </div>
         </form>
     </div>
+
+    <div>
+        <table id="example" class="table" cellspacing="0" width="100%" style="overflow-x:auto">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Name</th>
+                <th>Manufacturer</th>
+                <th>Qty</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${items}">
+
+                <td th:text="${item.id}">1</td>
+                <td th:text="${item.categoryId.name}">2</td>
+                <td th:text="${item.name}">2</td>
+                <td th:text="${item.manufacturer}">2</td>
+                <td th:text="${item.qty}">2</td>
+
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
 
     <!-- Modal UPDATE -->
     <div class="modal fade" id="updateModal" role="dialog">
@@ -198,7 +229,70 @@
         </div>
     </div>
 
+    <!-- Modal ADD ITEM -->
+    <div class="modal fade" id="addItem" role="dialog">
+        <div class="modal-dialog modal-sm">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <form action="#" th:action="@{/addnewitem}" method="post">
+                    <div class="modal-header">
+
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h3 class="modal-title">Add Item</h3>
+
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="parentItemCategory">Category :</label>
+                            <select class="form-control" id="parentItemCategory" name="parentItemCategory">
+                                <option id="parentItem" name="parentItem"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemName">New Item Name :</label>
+                            <input class="form-control" type="text" text="New Item Name"
+                                   id="itemName" name="itemName" required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemManufacturer">Manufacturer :</label>
+                            <input class="form-control" type="text" text="Manufacturer"
+                                   id="itemManufacturer" name="itemManufacturer" required/>
+                        </div>
+                        <div class="form-group">
+                            <label for="itemQty">Qty :</label>
+                            <input type="number" class="form-control" id="itemQty" name="itemQty" required/>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="input-group-btn">
+                            <button class="btn btn-primary" type="submit">Add</button>
+                            <button class="btn btn-danger" type="button" data-dismiss="modal">Cancel
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
 </div>
+
+
+
+<script type="text/javascript">
+    $(document).ready( function () {
+        $('#example').DataTable({
+            "paging": true,
+            "pageLength": 20,
+            "ordering": true
+        });
+    } );
+
+</script>
 
 
 <script>
@@ -241,6 +335,21 @@
                 formParent.value = parentCategory.value;
                 formParent.text = parentCategory.options[parentCategory.selectedIndex].text;
                 $('#deleteModal').modal();
+            } else {
+                alert("Choose a Category first!")
+            }
+        });
+    });
+
+    $(document).ready(function () {
+        $('#addItemBtn').click(function () {
+            var parentCategory = document.getElementById("category");
+            var formParent = document.getElementById("parentItem");
+            var value = parentCategory.value;
+            formParent.value = parentCategory.value;
+            if (parseInt(value) > 1) {
+                formParent.text = parentCategory.options[parentCategory.selectedIndex].text;
+                $('#addItem').modal();
             } else {
                 alert("Choose a Category first!")
             }

@@ -2,6 +2,7 @@ package com.swdproject.mmithb.dwp.controller;
 
 import com.swdproject.mmithb.dwp.model.Item;
 import com.swdproject.mmithb.dwp.model.NestedCategory;
+import com.swdproject.mmithb.dwp.model.NestedCategoryPref;
 import com.swdproject.mmithb.dwp.repository.ItemRepository;
 import com.swdproject.mmithb.dwp.repository.NestedCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,6 @@ public class WebController {
         return "DeWarehouse";
     }
 
-    @GetMapping("/inven")
-    public String inven() {
-        return "inven";
-    }
-
     @GetMapping("/inventory")
     public String getItems(Model model) {
         List<Item> item = new ArrayList<>();
@@ -56,10 +52,23 @@ public class WebController {
 
     @GetMapping("/categories")
     public String getCategories(Model model) {
-        List<NestedCategory> nestedCategory = new ArrayList<>();
+//        List<NestedCategory> nestedCategory = new ArrayList<>();
+//        model.addAttribute("category", nestedCategory);
+//        List nestedCategories = nestedCategoryRepository.getIndentedCategories();
+//        model.addAttribute("categories", nestedCategories);
+
+        List<NestedCategoryPref> nestedCategory = new ArrayList<>();
         model.addAttribute("category", nestedCategory);
-        List nestedCategories = nestedCategoryRepository.getIndentedCategories();
+        List nestedCategories = nestedCategoryRepository.getPrefixCategory();
         model.addAttribute("categories", nestedCategories);
+
+        List<NestedCategory> realCategory = nestedCategoryRepository.findAll();
+        model.addAttribute("realCategory", realCategory);
+
+        List<Item> item = new ArrayList<>();
+        model.addAttribute("item", item);
+        List items = itemRepository.findAll();
+        model.addAttribute("items", items);
 //        return "inventoryReady2";
 //        return "inventory222ByEka";
         return "inventIndex";
@@ -96,6 +105,23 @@ public class WebController {
         return "redirect:/categories";
     }
 
+    @PostMapping("/addnewitem")
+    public String addItem(@RequestParam("parentItemCategory") String parent,
+                          @RequestParam("itemName") String itemName,
+                          @RequestParam("itemManufacturer") String itemManufacturer,
+                          @RequestParam("itemQty") String itemQty,
+                          Model model) {
+        int qty = Integer.parseInt(itemQty);
+        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(parent));
+        Item item = new Item();
+        item.setCategoryId(parentCategory);
+        item.setName(itemName);
+        item.setManufacturer(itemManufacturer);
+        item.setQty(qty);
+        itemRepository.save(item);
+        return "redirect:/categories";
+    }
+
     @PostMapping("/edit")
     public String editCategory(@RequestParam("category") String oldcategory, @RequestParam(value = "action") String action,
                                Model model) {
@@ -112,18 +138,6 @@ public class WebController {
         }
         return "categories";
     }
-
-//    @RequestMapping(value = "/addcat", method = RequestMethod.POST)
-//    public String submitRegistrationForm(@RequestParam Map<String, String> reqPar, Model model) {
-//
-//        String oldCategory = reqPar.get("category");
-//        System.out.println(oldCategory);
-//
-//        model.addAttribute("parent", oldCategory);
-//        NestedCategory newCategory = new NestedCategory();
-//        model.addAttribute("newCategory", new NestedCategory());
-//        return "newCategoryForm";
-//    }
 
 
 }

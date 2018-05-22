@@ -13,6 +13,13 @@ public class NestedCategoryRepositoryImpl implements NestedCategoryRepositoryCus
     private EntityManager entityManager;
 
     @Override
+    public List getPrefixCategory() {
+        StoredProcedureQuery showPrefix =
+                entityManager.createNamedStoredProcedureQuery("getPrefixCategory");
+        return showPrefix.getResultList();
+    }
+
+    @Override
     public List getIndentedCategories() {
         StoredProcedureQuery showIndented =
                 entityManager.createNamedStoredProcedureQuery("getIndentedCategories");
