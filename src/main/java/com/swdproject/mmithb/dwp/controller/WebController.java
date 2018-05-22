@@ -36,7 +36,7 @@ public class WebController {
     public String getItems(Model model) {
         List<Item> item = new ArrayList<>();
         model.addAttribute("item", item);
-        List items = itemRepository.findAll();
+        List items = (List) itemRepository.findAll();
         model.addAttribute("items", items);
         return "itemPage";
     }
@@ -62,12 +62,12 @@ public class WebController {
         List nestedCategories = nestedCategoryRepository.getPrefixCategory();
         model.addAttribute("categories", nestedCategories);
 
-        List<NestedCategory> realCategory = nestedCategoryRepository.findAll();
+        List<NestedCategory> realCategory = (List<NestedCategory>) nestedCategoryRepository.findAll();
         model.addAttribute("realCategory", realCategory);
 
         List<Item> item = new ArrayList<>();
         model.addAttribute("item", item);
-        List items = itemRepository.findAll();
+        List items = (List) itemRepository.findAll();
         model.addAttribute("items", items);
 //        return "inventoryReady2";
 //        return "inventory222ByEka";
@@ -75,32 +75,35 @@ public class WebController {
     }
 
 
-    @GetMapping("/categoryTable")
-    public String getCategoryTable(Model model) {
-        List<NestedCategory> nestedCategory = new ArrayList<>();
-        model.addAttribute("category", nestedCategory);
-        List<NestedCategory> nestedCategories = nestedCategoryRepository.findAll();
-        model.addAttribute("categories", nestedCategories);
-        return "categoryTable";
-    }
+//    @GetMapping("/categoryTable")
+//    public String getCategoryTable(Model model) {
+//        List<NestedCategory> nestedCategory = new ArrayList<>();
+//        model.addAttribute("category", nestedCategory);
+//        List<NestedCategory> nestedCategories = nestedCategoryRepository.findAll();
+//        model.addAttribute("categories", nestedCategories);
+//        return "categoryTable";
+//    }
 
     @PostMapping("/addnewcat")
     public String saveCategory(@RequestParam("parent") String parent, @RequestParam("addcategory") String newcategory, Model model) {
-        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(parent));
+        NestedCategory parentCategory = nestedCategoryRepository.findOneByName(parent);
+//        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(parent));
         nestedCategoryRepository.addNewSubcategory(newcategory, parentCategory.getName());
         return "redirect:/categories";
     }
 
     @PostMapping("/savecat")
     public String updateSaveCategory(@RequestParam("newcategory") String newcategory, @RequestParam("oldcategory") String oldcategory, Model model) {
-        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(oldcategory));
+        NestedCategory parentCategory = nestedCategoryRepository.findOneByName(oldcategory);
+//        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(oldcategory));
         nestedCategoryRepository.updateCategory(newcategory, parentCategory.getName());
         return "redirect:/categories";
     }
 
     @PostMapping("/deletecat")
     public String deleteCategory(@RequestParam("categorydel") String categoryname, Model model) {
-        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(categoryname));
+        NestedCategory parentCategory = nestedCategoryRepository.findOneByName(categoryname);
+//        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(categoryname));
         nestedCategoryRepository.deleteCategory(parentCategory.getName());
         return "redirect:/categories";
     }
@@ -112,7 +115,8 @@ public class WebController {
                           @RequestParam("itemQty") String itemQty,
                           Model model) {
         int qty = Integer.parseInt(itemQty);
-        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(parent));
+        NestedCategory parentCategory = nestedCategoryRepository.findOneByName(parent);
+//        NestedCategory parentCategory = nestedCategoryRepository.findOneById(Long.parseLong(parent));
         Item item = new Item();
         item.setCategoryId(parentCategory);
         item.setName(itemName);
