@@ -33,35 +33,35 @@ public class WebController {
         List nestedCategories = nestedCategoryRepository.getPrefixCategory();
         model.addAttribute("categories", nestedCategories);
 
-        List<NestedCategory> realCategory = (List<NestedCategory>) nestedCategoryRepository.findAll();
+        List<NestedCategory> realCategory = nestedCategoryRepository.findAll();
         model.addAttribute("realCategory", realCategory);
 
         List<Item> item = new ArrayList<>();
         model.addAttribute("item", item);
-        List items = (List) itemRepository.findAll();
+        List items = itemRepository.findAll();
         model.addAttribute("items", items);
-        return "inventIndex";
+        return "index";
     }
 
     @PostMapping("/addnewcat")
     public String saveCategory(@RequestParam("parent") String parent, @RequestParam("addcategory") String newcategory, Model model) {
         NestedCategory parentCategory = nestedCategoryRepository.findOneByName(parent);
         nestedCategoryRepository.addNewSubcategory(newcategory, parentCategory.getName());
-        return "redirect:/categories";
+        return "redirect:/";
     }
 
     @PostMapping("/savecat")
     public String updateSaveCategory(@RequestParam("newcategory") String newcategory, @RequestParam("oldcategory") String oldcategory, Model model) {
         NestedCategory parentCategory = nestedCategoryRepository.findOneByName(oldcategory);
         nestedCategoryRepository.updateCategory(newcategory, parentCategory.getName());
-        return "redirect:/categories";
+        return "redirect:/";
     }
 
     @PostMapping("/deletecat")
     public String deleteCategory(@RequestParam("categorydel") String categoryname, Model model) {
         NestedCategory parentCategory = nestedCategoryRepository.findOneByName(categoryname);
         nestedCategoryRepository.deleteCategory(parentCategory.getName());
-        return "redirect:/categories";
+        return "redirect:/";
     }
 
     @PostMapping("/addnewitem")
@@ -78,7 +78,7 @@ public class WebController {
         item.setManufacturer(itemManufacturer);
         item.setQty(qty);
         itemRepository.save(item);
-        return "redirect:/categories";
+        return "redirect:/";
     }
 
     @PostMapping("/updateitem")
@@ -96,14 +96,14 @@ public class WebController {
 
         itemRepository.save(item);
 
-        return "redirect:/categories";
+        return "redirect:/";
     }
 
     @PostMapping("/deleteitem")
     public String deleteItem(@RequestParam("deleteIdItem") String deleteIdItem) {
         Item item = itemRepository.findOneById(Long.parseLong(deleteIdItem));
         itemRepository.delete(item);
-        return "redirect:/categories";
+        return "redirect:/";
     }
 
 }
