@@ -27,10 +27,6 @@ public class NestedCategoryRepositoryImpl implements NestedCategoryRepositoryCus
     }
 
     @Override
-    public void addNewCategory() {
-    }
-
-    @Override
     public void addNewSubcategory(String newcategory, String parent) {
         StoredProcedureQuery addNewSubcategory =
                 entityManager.createNamedStoredProcedureQuery("addNewSubcategory");

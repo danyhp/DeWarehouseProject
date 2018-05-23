@@ -22,9 +22,4 @@ public class ItemController {
         return itemRepository.findAll();
     }
 
-//    @RequestMapping(value = "/item-advanced", method = RequestMethod.GET)
-//    public DataTablesOutput<Item> listAdvanced() {
-//        return itemRepository.findAll();
-//    }
-
 }

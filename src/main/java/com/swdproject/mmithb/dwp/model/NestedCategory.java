@@ -7,7 +7,6 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "nested_category")
-//@EntityListeners(AuditingEntityListener.class)
 @NamedStoredProcedureQueries({
         @NamedStoredProcedureQuery(name = "getIndentedCategories",
                 procedureName = "show_indent",
@@ -39,7 +38,6 @@ public class NestedCategory implements Serializable {
     private Long id;
 
     @Column(nullable = false, unique = true)
-//    @NotBlank
     private String name;
 
     @Column
@@ -56,8 +54,6 @@ public class NestedCategory implements Serializable {
     @OneToMany(mappedBy = "parent")
     private Collection<NestedCategory> node;
 
-//    @OneToMany(mappedBy = "NestedCategory", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Item> items = new ArrayList<>();
 
     // Getter and Setter
 

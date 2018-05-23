@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
-//@EntityListeners(AuditingEntityListener.class)
 @NamedStoredProcedureQueries({
         @NamedStoredProcedureQuery(name = "getPrefixCategory",
                 procedureName = "show_indent2",

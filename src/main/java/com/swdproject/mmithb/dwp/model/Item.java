@@ -8,7 +8,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "product")
-//@EntityListeners(AuditingEntityListener.class)
 public class Item implements Serializable {
 
     @Id

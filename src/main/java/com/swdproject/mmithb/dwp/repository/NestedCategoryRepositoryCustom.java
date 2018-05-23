@@ -8,8 +8,6 @@ public interface NestedCategoryRepositoryCustom {
 
     List getPrefixCategory();
 
-    void addNewCategory();
-
     void addNewSubcategory(String parent, String newcategory);
 
     void updateCategory(String newcategory, String oldcategory);
